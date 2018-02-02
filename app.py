@@ -59,9 +59,9 @@ def processRequest(req):
 
 
 def makeWebhookResult(data):
-    value = data.get['result'].get['parameters'].get['number']
-    fro = data.get['result'].get['parameters'].get['Monedas']
-    to = data.get['result'].get['parameters'].get['Monedas1']
+    value = data.get('result').get('parameters').get('number')
+    fro = data.get('result').get('parameters').get('Monedas')
+    to = data.get('result').get('parameters').get('Monedas1')
     speech = convert(fro, to, value)
     print("Response:")
     print(speech)
