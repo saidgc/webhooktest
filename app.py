@@ -55,7 +55,7 @@ def webhook():
 
 
 def processRequest(req):
-    bot.send_message(chat_id='427461072', text=r"ree="+eq.get)
+    bot.send_message(chat_id='427461072', text=r"ree="+req.get)
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
