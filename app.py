@@ -59,7 +59,10 @@ def processRequest(req):
 
 
 def makeWebhookResult(data):
-    speech = "Reqs =" + str(data)
+    value = data.get['result'].get['parameters'].get['number']
+    fro = data.get['result'].get['parameters'].get['Monedas']
+    to = data.get['result'].get['parameters'].get['Monedas1']
+    speech = convert(fro, to, value)
     print("Response:")
     print(speech)
     return {
@@ -84,6 +87,7 @@ def convert(from_, to_, value_):
         return (res1[0] + " " + to_).upper()
     except Exception as e:
         print(e.message)
+
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
