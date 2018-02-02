@@ -29,7 +29,7 @@ from flask import Flask
 from flask import request
 from flask import make_response
 
-bot = telegram.Bot('453845758:AAE34NNLR8m6LNDNCZ8hLnTbad1PbiLWjjs')
+#bot = telegram.Bot('453845758:AAE34NNLR8m6LNDNCZ8hLnTbad1PbiLWjjs')
 
 
 # Flask app should start in global layout
@@ -53,7 +53,7 @@ def webhook():
 
 
 def processRequest(req):
-    bot.send_message(chat_id='427461072', text=r"ree="+eq.get)
+    #bot.send_message(chat_id='427461072', text=r"ree="+eq.get)
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
