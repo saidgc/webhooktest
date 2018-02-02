@@ -24,14 +24,12 @@ from urllib.error import HTTPError
 
 import json
 import os
-import telegram
 
 
 from flask import Flask
 from flask import request
 from flask import make_response
 
-bot = telegram.Bot('461156088:AAGfcNyk9Ortq2Z2LG8vAhXC1NYI2SDK1aM')
 
 
 # Flask app should start in global layout
@@ -55,7 +53,6 @@ def webhook():
 
 
 def processRequest(req):
-    bot.send_message(chat_id='427461072', text=r"ree="+req.get)
     if req.get("result").get("action") != "yahooWeatherForecast":
         return {}
     baseurl = "https://query.yahooapis.com/v1/public/yql?"
