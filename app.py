@@ -16,6 +16,7 @@
 
 from __future__ import print_function
 from future.standard_library import install_aliases
+
 install_aliases()
 
 from urllib.parse import urlparse, urlencode
@@ -25,12 +26,12 @@ from urllib.error import HTTPError
 import json
 import os
 
+import requests
+from bs4 import BeautifulSoup
 
 from flask import Flask
 from flask import request
 from flask import make_response
-
-
 
 # Flask app should start in global layout
 app = Flask(__name__)
@@ -40,13 +41,9 @@ app = Flask(__name__)
 def webhook():
     req = request.get_json(silent=True, force=True)
 
-    print("Request:")
-    print(json.dumps(req, indent=4))
-
     res = processRequest(req)
-
     res = json.dumps(res, indent=4)
-    # print(res)
+
     r = make_response(res)
     r.headers['Content-Type'] = 'application/json'
     return r
@@ -54,10 +51,12 @@ def webhook():
 
 def processRequest(req):
     print(req.get("result").get("action"))
-    if req.get("result").get("action") != "yahooWeatherForecast":
+    if req.get("result").get("action") == "covert":
+        res = makeWebhookResult(req)
+    else:
         return {}
-    res = makeWebhookResult(req)
     return res
+
 
 def makeWebhookResult(data):
     speech = "Reqs =" + str(data)
@@ -71,6 +70,20 @@ def makeWebhookResult(data):
         "source": "apiai-weather-webhook-sample"
     }
 
+
+def convert(from_, to_, value_):
+    try:
+        url = "http://www.xe.com/currencyconverter/convert/?Amount=" + str(value_) + "&From=" + str(
+            from_) + "&To=" + str(to_)
+        response = requests.get(url)
+        page_source = response.content
+        source_code = page_source
+        soup = BeautifulSoup(source_code, "html.parser")
+        res = str(soup.find_all("span", class_="uccResultAmount")[0]).split('>')
+        res1 = res[1].split('<')
+        return (res1[0] + " " + to_).upper()
+    except Exception as e:
+        print(e.message)
 
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
