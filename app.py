@@ -31,7 +31,7 @@ from flask import Flask
 from flask import request
 from flask import make_response
 
-bot = telegram.Bot('453845758:AAE34NNLR8m6LNDNCZ8hLnTbad1PbiLWjjs')
+bot = telegram.Bot('461156088:AAGfcNyk9Ortq2Z2LG8vAhXC1NYI2SDK1aM')
 
 
 # Flask app should start in global layout
